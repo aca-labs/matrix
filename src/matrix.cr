@@ -6,7 +6,7 @@
 #
 # Where possible, all matrix operations provide validation at the type level.
 struct Matrix(T, M, N)
-  @buffer : Pointer(T)
+  include Indexable(T)
 
   # Creates a Matrix with each element initialized as *value*.
   def self.of(value : T)
@@ -39,17 +39,17 @@ struct Matrix(T, M, N)
     @buffer[idx]
   end
 
+  # Sets the value of the element at *i*,*j*.
+  def []=(i : Int, j : Int, value : T)
+    idx = index i, j
+    @buffer[idx] = value
+  end
+
   # Yields the current element at *i*,*j* and updates the value with the
   # block's return value.
   def update(i, j, &block : T -> T)
     idx = index i, j
     @buffer[idx] = yield @buffer[idx]
-  end
-
-  # Sets the value of the element at *i*,*j*.
-  def []=(i : Int, j : Int, value : T)
-    idx = index i, j
-    @buffer[idx] = value
   end
 
   # Returns the dimensions of `self` as a tuple of {rows, cols}.
@@ -60,6 +60,14 @@ struct Matrix(T, M, N)
   # Gets the capacity (total number of elements) of `self`.
   def size
     M * N
+  end
+
+  # Returns the element at the given linear index, without doing any bounds
+  # check.
+  #
+  # Used by `Indexable`
+  protected def unsafe_fetch(index : Int)
+    @buffer[index]
   end
 
   # Map *i*,*j* coords to an index within the buffer.
