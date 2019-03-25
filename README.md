@@ -4,6 +4,8 @@
 [![Build Status](https://travis-ci.com/aca-labs/matrix.svg?branch=master)](https://travis-ci.com/aca-labs/matrix)
 [![Docs](https://img.shields.io/badge/docs-available-brightgreen.svg)](https://aca-labs.github.io/matrix/)
 
+![](https://static.thenounproject.com/png/658616-200.png)
+
 Generic, type-safe matrix structure for crystal-lang.
 
 ## Installation
