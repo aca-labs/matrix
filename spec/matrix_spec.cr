@@ -34,6 +34,22 @@ describe Matrix do
     end
   end
 
+  describe "#+" do
+    it "supports matrix addition" do
+      a = Matrix(Int32, 2, 2).of 1
+      b = Matrix(Int32, 2, 2).of 2
+      (a + b).should eq(Matrix(Int32, 2, 2).of 3)
+    end
+  end
+
+  describe "#-" do
+    it "supports matrix subtraction" do
+      a = Matrix(Int32, 2, 2).of 2
+      b = Matrix(Int32, 2, 2).of 2
+      (a - b).should eq(Matrix(Int32, 2, 2).of 0)
+    end
+  end
+
   describe "#[]" do
     a = Matrix(Int32, 5, 5).new { |idx| idx }
 

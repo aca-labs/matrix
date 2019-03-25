@@ -47,6 +47,18 @@ struct Matrix(T, M, N)
     false
   end
 
+  # Returns a new Matrix that is the result of performing a matrix addition with
+  # *other*
+  def +(other : Matrix)
+    merge(other) { |a, b| a + b }
+  end
+
+  # Returns a new Matrix that is the result of performing a matrix subtraction
+  # with *other*
+  def -(other : Matrix)
+    merge(other) { |a, b| a - b }
+  end
+
   # Retrieves the value of the element at *i*,*j*.
   #
   # Indicies are zero-based. Negative values may be passed for *i* and *j* to
@@ -77,12 +89,34 @@ struct Matrix(T, M, N)
     end
   end
 
+  # ditto
+  def map_with_indices(&block : T, UInt32, UInt32 -> U) forall U
+    Matrix(U, N, M).from do |i, j|
+      block.call @buffer[idx], i, j
+    end
+  end
+
+  # ditto
+  def map_with_index(&block : T, Int32 -> U) forall U
+    Matrix(U, N, M).new do |idx|
+      block.call @buffer[idx], idx
+    end
+  end
+
   # Apply an endomorphism to `self`, mutating all elements in place.
   def map!(&block : T -> T)
     each_with_index do |e, i|
       @buffer[i] = block.call e
     end
     self
+  end
+
+  def merge(other : Matrix(U, A, B), &block : T, U -> V) forall U, V
+    {{raise("Dimension mismatch") unless  A == M && B == N}}
+
+    map_with_index do |e, i|
+      block.call e, other[i]
+    end
   end
 
   # Returns the dimensions of `self` as a tuple of `{rows, cols}`.
