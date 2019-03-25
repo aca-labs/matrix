@@ -1,0 +1,14 @@
+name: matrix
+version: 0.1.0
+
+authors:
+  - Kim Burgess <kim@acaprojects.com>
+
+description: |
+  Generic, type-safe matrix structure.
+
+github: aca-labs/matrix
+
+crystal: 0.27.2
+
+license: MIT
