@@ -29,6 +29,24 @@ struct Matrix(T, M, N)
     @buffer = Pointer(T).malloc(size, &block)
   end
 
+  # Equality. Returns `true` if each element in `self` is equal to each
+  # corresponding element in *other*.
+  def ==(other : Matrix(U, A, B)) forall U
+    {% if A == M && B == N %}
+      each_with_index do |e, i|
+        return false unless e == other[i]
+      end
+      true
+    {% else %}
+      false
+    {% end %}
+  end
+
+  # Equality with another object, or differently sized matrix. Always `false`.
+  def ==(other)
+    false
+  end
+
   # Retrieves the value of the element at *i*,*j*.
   #
   # Indicies are zero-based. Negative values may be passed for *i* and *j* to

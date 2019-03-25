@@ -15,6 +15,25 @@ describe Matrix do
     end
   end
 
+  describe "#==" do
+    it "return false for differently sized matrices" do
+      a = Matrix(Nil, 10, 10).of nil
+      b = Matrix(Nil, 5, 5).of nil
+      (a == b).should eq(false)
+    end
+
+    it "uses element equality for equally size matrices" do
+      a = Matrix(Int32, 10, 10).of 42
+      b = Matrix(Float32, 10, 10).of 42.0
+      (a == b).should eq(true)
+    end
+
+    it "return false for other objects" do
+      a = Matrix(Nil, 10, 10).of nil
+      (a == "Foo").should eq(false)
+    end
+  end
+
   describe "#[]" do
     a = Matrix(Int32, 5, 5).new { |idx| idx }
 
