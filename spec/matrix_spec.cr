@@ -79,6 +79,22 @@ describe Matrix do
     end
   end
 
+  describe "#map" do
+    it "supports mapping to new contained type" do
+      a = Matrix(Int32, 10, 10).of 0
+      b = a.map(&.to_f)
+      b.all? { |x| typeof(x) == Float64 }.should be_true
+    end
+  end
+
+  describe "#map!" do
+    it "supports mutating self" do
+      a = Matrix(Int32, 10, 10).of 42
+      a.map!(&.*(2))
+      a.all?(&.==(84)).should be_true
+    end
+  end
+
   describe "#dimensions" do
     it "provides the dimensions as a tuple" do
       a = Matrix(Nil, 10, 5).of nil

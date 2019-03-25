@@ -70,7 +70,22 @@ struct Matrix(T, M, N)
     @buffer[idx] = yield @buffer[idx]
   end
 
-  # Returns the dimensions of `self` as a tuple of {rows, cols}.
+  # Apply a morphism to all elements, returning a new Matrix with the result.
+  def map(&block : T -> U) forall U
+    Matrix(U, N, M).new do |idx|
+      block.call @buffer[idx]
+    end
+  end
+
+  # Apply an endomorphism to `self`, mutating all elements in place.
+  def map!(&block : T -> T)
+    each_with_index do |e, i|
+      @buffer[i] = block.call e
+    end
+    self
+  end
+
+  # Returns the dimensions of `self` as a tuple of `{rows, cols}`.
   def dimensions
     {M, N}
   end
