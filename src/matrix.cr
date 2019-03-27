@@ -84,21 +84,21 @@ struct Matrix(T, M, N)
 
   # Apply a morphism to all elements, returning a new Matrix with the result.
   def map(&block : T -> U) forall U
-    Matrix(U, N, M).new do |idx|
+    Matrix(U, M, N).new do |idx|
       block.call @buffer[idx]
     end
   end
 
   # ditto
   def map_with_indices(&block : T, UInt32, UInt32 -> U) forall U
-    Matrix(U, N, M).from do |i, j|
       block.call @buffer[idx], i, j
+    Matrix(U, M, N).new do |idx|
     end
   end
 
   # ditto
   def map_with_index(&block : T, Int32 -> U) forall U
-    Matrix(U, N, M).new do |idx|
+    Matrix(U, M, N).new do |idx|
       block.call @buffer[idx], idx
     end
   end
