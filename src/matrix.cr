@@ -62,7 +62,7 @@ struct Matrix(T, M, N)
   # Retrieves the value of the element at *i*,*j*.
   #
   # Indicies are zero-based. Negative values may be passed for *i* and *j* to
-  # enable reverse indexing such that `self[-1, -1] == self[m - 1, n - 1]`
+  # enable reverse indexing such that `self[-1, -1] == self[M - 1, N - 1]`
   # (same behaviour as arrays).
   def [](i : Int, j : Int) : T
     idx = index i, j
@@ -129,6 +129,16 @@ struct Matrix(T, M, N)
     M * N
   end
 
+  # Count of rows.
+  def rows
+    M
+  end
+
+  # Count of columns.
+  def cols
+    N
+  end
+
   # Returns the element at the given linear index, without doing any bounds
   # check.
   #
@@ -144,12 +154,12 @@ struct Matrix(T, M, N)
   end
 
   # Map *i*,*j* coords to an index within the buffer.
-  private def index(i : Int, j : Int)
-    i += M if i < 0
-    j += N if j < 0
+  protected def index(i : Int, j : Int)
+    i += rows if i < 0
+    j += cols if j < 0
 
     raise IndexError.new if i < 0 || j < 0
-    raise IndexError.new unless i < M && j < N
+    raise IndexError.new unless i < rows && j < cols
 
     i * N + j
   end

@@ -124,4 +124,18 @@ describe Matrix do
       a.size.should eq(50)
     end
   end
+
+  describe "#rows" do
+    it "provides the row count" do
+      a = Matrix(Nil, 10, 5).of nil
+      a.rows.should eq(10)
+    end
+  end
+
+  describe "#cols" do
+    it "provides the column count" do
+      a = Matrix(Nil, 10, 5).of nil
+      a.cols.should eq(5)
+    end
+  end
 end
