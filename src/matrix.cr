@@ -66,26 +66,26 @@ struct Matrix(T, M, N)
   # (same behaviour as arrays).
   def [](i : Int, j : Int) : T
     idx = index i, j
-    @buffer[idx]
+    to_unsafe[idx]
   end
 
   # Sets the value of the element at *i*,*j*.
   def []=(i : Int, j : Int, value : T)
     idx = index i, j
-    @buffer[idx] = value
+    to_unsafe[idx] = value
   end
 
   # Yields the current element at *i*,*j* and updates the value with the
   # block's return value.
   def update(i, j, &block : T -> T)
     idx = index i, j
-    @buffer[idx] = yield @buffer[idx]
+    to_unsafe[idx] = yield to_unsafe[idx]
   end
 
   # Apply a morphism to all elements, returning a new Matrix with the result.
   def map(&block : T -> U) forall U
     Matrix(U, M, N).new do |idx|
-      block.call @buffer[idx]
+      block.call to_unsafe[idx]
     end
   end
 
@@ -99,14 +99,14 @@ struct Matrix(T, M, N)
   # ditto
   def map_with_index(&block : T, Int32 -> U) forall U
     Matrix(U, M, N).new do |idx|
-      block.call @buffer[idx], idx
+      block.call to_unsafe[idx], idx
     end
   end
 
   # Apply an endomorphism to `self`, mutating all elements in place.
   def map!(&block : T -> T)
-    each_with_index do |e, i|
-      @buffer[i] = block.call e
+    each_with_index do |e, idx|
+      to_unsafe[idx] = yield e
     end
     self
   end
@@ -133,8 +133,14 @@ struct Matrix(T, M, N)
   # check.
   #
   # Used by `Indexable`
+   @[AlwaysInline]
   protected def unsafe_fetch(index : Int)
-    @buffer[index]
+    to_unsafe[index]
+  end
+
+  # Returns the pointer to the underlying element data.
+  protected def to_unsafe : Pointer(T)
+    @buffer
   end
 
   # Map *i*,*j* coords to an index within the buffer.
