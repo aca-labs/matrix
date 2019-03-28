@@ -11,6 +11,11 @@ describe Matrix do
       Matrix(UInt32, 2, 2).from { |i, j| i * j }
     end
 
+    it "supports building from a StaticArray" do
+      a = StaticArray[1, 2, 3, 4]
+      Matrix(Int32, 2, 2).from a
+    end
+
     it "supports creation with a linear index initialiser" do
       Matrix(Int32, 2, 2).new { |idx| idx }
     end

@@ -22,6 +22,25 @@ struct Matrix(T, M, N)
     end
   end
 
+  # Creates a Matrix from elements contained within a StaticArray.
+  #
+  # The matrix will be filled rows first, such that an array of
+  #
+  #   [1, 2, 3, 4]
+  #
+  # becomes
+  #
+  #   | 1  2 |
+  #   | 3  4 |
+  #
+  def self.from(list : StaticArray(T, A))
+    {{ raise("Not enough elements to fill matrix") if A < M * N }}
+
+    Matrix(T, M, N).new do |idx|
+      list[idx]
+    end
+  end
+
   # Creates Matrix, yielding the linear index for each element to provide an
   # initial value.
   def initialize(&block : Int32 -> T)
