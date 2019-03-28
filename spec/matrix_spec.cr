@@ -1,4 +1,5 @@
-require "./spec_helper"
+require "spec"
+require "../src/matrix"
 
 describe Matrix do
   describe "initialization" do
