@@ -91,8 +91,8 @@ struct Matrix(T, M, N)
 
   # ditto
   def map_with_indices(&block : T, UInt32, UInt32 -> U) forall U
-      block.call @buffer[idx], i, j
-    Matrix(U, M, N).new do |idx|
+    Matrix(U, M, N).from do |i, j|
+      block.call self[i, j], i, j
     end
   end
 
