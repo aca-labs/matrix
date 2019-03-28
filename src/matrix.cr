@@ -111,8 +111,8 @@ struct Matrix(T, M, N)
     self
   end
 
-  def merge(other : Matrix(U, A, B), &block : T, U -> V) forall U, V
-    {{raise("Dimension mismatch") unless  A == M && B == N}}
+  def merge(other : Matrix(U, A, B), &block : T, U -> _) forall U
+    {{ raise("Dimension mismatch") unless  A == M && B == N }}
 
     map_with_index do |e, i|
       block.call e, other[i]
