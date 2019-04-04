@@ -140,6 +140,14 @@ describe Matrix do
     end
   end
 
+  describe "#transpose" do
+    it "creates a transposed matrix" do
+      a = Matrix(UInt32, 2, 3).build { |i, j| i * j }
+      b = Matrix(UInt32, 3, 2).build { |i, j| j * i }
+      a.transpose.should eq(b)
+    end
+  end
+
   describe "#dimensions" do
     it "provides the dimensions as a tuple" do
       a = Matrix(Nil, 10, 5).of nil

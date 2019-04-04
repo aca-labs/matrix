@@ -168,6 +168,14 @@ struct Matrix(T, M, N)
     end
   end
 
+  # Creates a new matrix that is the result of inverting the rows and columns
+  # of `self`.
+  def transpose
+    Matrix(T, N, M).build do |i, j|
+      self[j, i]
+    end
+  end
+
   # Returns the dimensions of `self` as a tuple of `{rows, cols}`.
   def dimensions
     {M, N}
