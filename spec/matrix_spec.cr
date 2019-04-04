@@ -96,6 +96,18 @@ describe Matrix do
     end
   end
 
+  describe "#row" do
+    a = Matrix(Int32, 2, 2).identity
+    a.row(0).should eq(StaticArray[1, 0])
+    a.row(1).should eq(StaticArray[0, 1])
+  end
+
+  describe "#col" do
+    a = Matrix(Int32, 2, 2).identity
+    a.col(0).should eq(StaticArray[1, 0])
+    a.col(1).should eq(StaticArray[0, 1])
+  end
+
   describe "#update" do
     a = Matrix(Int32, 10, 10).of 42
 

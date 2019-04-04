@@ -112,6 +112,16 @@ struct Matrix(T, M, N)
     to_unsafe[idx] = value
   end
 
+  # Gets the contents of row *i*.
+  def row(i : Int)
+    StaticArray(T, N).new { |j| self[i, j] }
+  end
+
+  # Gets the cotents of column *j*.
+  def col(j : Int)
+    StaticArray(T, M).new { |i| self[i, j] }
+  end
+
   # Yields the current element at *i*,*j* and updates the value with the
   # block's return value.
   def update(i, j, &block : T -> T)
