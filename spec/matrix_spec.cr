@@ -8,7 +8,7 @@ describe Matrix do
     end
 
     it "supports creation with an indices initialiser" do
-      Matrix(UInt32, 2, 2).from { |i, j| i * j }
+      Matrix(UInt32, 2, 2).build { |i, j| i * j }
     end
 
     it "supports building from a StaticArray" do

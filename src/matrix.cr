@@ -14,7 +14,7 @@ struct Matrix(T, M, N)
   end
 
   # Creates a Matrix, invoking *initialiser* with each pair of indices.
-  def self.from(&initialiser : UInt32, UInt32 -> T)
+  def self.build(&initialiser : UInt32, UInt32 -> T)
     Matrix(T, M, N).new do |idx|
       i = (idx / N).to_u32
       j = (idx % N).to_u32
@@ -54,7 +54,7 @@ struct Matrix(T, M, N)
   def self.identity(id = T.zero + 1)
     {{ raise("Matrix dimensions must be square") unless M == N }}
 
-    Matrix(T, N, M).from do |i, j|
+    Matrix(T, N, M).build do |i, j|
       i == j ? id : T.zero
     end
   end
@@ -158,6 +158,8 @@ struct Matrix(T, M, N)
     self
   end
 
+  # Merge with another similarly dimensions matrix, apply the passed block to
+  # each elemenet pair.
   def merge(other : Matrix(U, A, B), &block : T, U -> _) forall U
     {{ raise("Dimension mismatch") unless  A == M && B == N }}
 
