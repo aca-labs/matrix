@@ -41,6 +41,24 @@ struct Matrix(T, M, N)
     end
   end
 
+  # Build a zero matrix (all elements populated with zero value of the type
+  # isntance).
+  def self.zero
+      Matrix(T, N, M).new { T.zero }
+  end
+
+  # Build the idenity matrix for the instanced type and dimensions.
+  #
+  # `id` may be used to specify an identity element for the type. If unspecifed
+  # a numeric identity will be assumed.
+  def self.identity(id = T.zero + 1)
+    {{ raise("Matrix dimensions must be square") unless M == N }}
+
+    Matrix(T, N, M).from do |i, j|
+      i == j ? id : T.zero
+    end
+  end
+
   # Creates Matrix, yielding the linear index for each element to provide an
   # initial value.
   def initialize(&block : Int32 -> T)

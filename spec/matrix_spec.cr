@@ -21,6 +21,17 @@ describe Matrix do
     end
   end
 
+  describe "special matricies" do
+    it "builds zero matrices" do
+      Matrix(Int32, 2, 2).zero.should eq(Matrix(Int32, 2, 2).of 0)
+    end
+
+    it "build identity matrices" do
+      id = Matrix(Int32, 2, 2).from StaticArray[1, 0, 0, 1]
+      Matrix(Int32, 2, 2).identity.should eq(id)
+    end
+  end
+
   describe "#==" do
     it "return false for differently sized matrices" do
       a = Matrix(Nil, 10, 10).of nil
@@ -76,7 +87,7 @@ describe Matrix do
   end
 
   describe "#[]=" do
-    a = Matrix(Int32, 5, 5).of 0
+    a = Matrix(Int32, 5, 5).zero
 
     it "supports assigning new values to elements" do
       a[0, 0] = 42
@@ -103,7 +114,7 @@ describe Matrix do
 
   describe "#map" do
     it "supports mapping to new contained type" do
-      a = Matrix(Int32, 10, 10).of 0
+      a = Matrix(Int32, 10, 10).zero
       b = a.map(&.to_f)
       b.all? { |x| typeof(x) == Float64 }.should be_true
     end
