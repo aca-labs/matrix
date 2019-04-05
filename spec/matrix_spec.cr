@@ -67,6 +67,25 @@ describe Matrix do
     end
   end
 
+  describe "#*" do
+    a = Matrix(Int32, 2, 2).of 1
+
+    it "supports matrix multiplication" do
+      id = Matrix(Int32, 2, 2).identity
+      (a * id).should eq(a)
+      (id * a).should eq(a)
+
+      c = Matrix(Int32, 2, 3).new { |i| i + 1 }
+      d = Matrix(Int32, 3, 2).new { |i| i + 7 }
+      e = Matrix(Int32, 2, 2).from StaticArray[58, 64, 139, 154]
+      (c * d).should eq(e)
+    end
+
+    it "supports scalar multiplication" do
+      (a * 2).should eq(Matrix(Int32, 2, 2).of 2)
+    end
+  end
+
   describe "#[]" do
     a = Matrix(Int32, 5, 5).new { |idx| idx }
 

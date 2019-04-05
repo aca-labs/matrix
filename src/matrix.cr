@@ -96,6 +96,22 @@ struct Matrix(T, M, N)
     merge(other) { |a, b| a - b }
   end
 
+  # Performs a matrix multiplication with *other*.
+  def *(other : Matrix(_, A, B))
+    {{ raise("Dimension mismatch, cannot multiply a #{M}x#{N} by a #{A}x#{B}") \
+      unless N == A }}
+
+    Matrix(typeof(self[0] * other[0]), M, B).build do |i, j|
+      pairs = row(i).zip other.col(j)
+      pairs.map(&.product).sum
+    end
+  end
+
+  # Performs a scalar multiplication with *other*.
+  def *(other)
+    map { |x| x * other }
+  end
+
   # Retrieves the value of the element at *i*,*j*.
   #
   # Indicies are zero-based. Negative values may be passed for *i* and *j* to
