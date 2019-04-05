@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.27.2">
+
+
+<link href="css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "";
+</script>
+
+  <meta id="repository-name" content="github.com/aca-labs/matrix">
+  <title>Matrix(T, M, N) - github.com/aca-labs/matrix</title>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="index.html">README</a>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class=" current" data-id="github.com/aca-labs/matrix/Matrix" data-name="matrix(t, m, n)">
+      <a href="Matrix.html">Matrix</a>
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">struct</span> Matrix(T, M, N)
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="Matrix.html">Matrix(T, M, N)</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>Overview</h2>
+
+  <p>Generic, type-safe abstract matrix structure.</p>
+
+<p>This structure provides an <em>M</em> x <em>N</em> rectangular array of any
+<a href="https://en.wikipedia.org/wiki/Field_(mathematics" target="_blank">field</a>) <em>T</em>. That is, <em>T</em>
+must define operations for addition, subtraction, multiplication and division.</p>
+
+<p>Where possible, all matrix operations provide validation at the type level.</p>
+
+
+
+
+
+  <h2>Included Modules</h2>
+  <ul class="other-types-list">
+  
+    <li class="other-type">Indexable(T)</li>
+  
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L8" target="_blank">
+        matrix.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Constructors</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28%26block%3AInt32-%3ET%29-class-method" class="signature"><strong>.new</strong>(&block : Int32 -> T)</a>
+        
+          <div class="summary"><p>Creates Matrix, yielding the linear index for each element to provide an initial value.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#build%28%26initialiser%3AUInt32%2CUInt32-%3ET%29-class-method" class="signature"><strong>.build</strong>(&initialiser : UInt32, UInt32 -> T)</a>
+        
+          <div class="summary"><p>Creates a Matrix, invoking <em>initialiser</em> with each pair of indices.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#from%28list%3AStaticArray%28T%2CA%29%29-class-method" class="signature"><strong>.from</strong>(list : StaticArray(T, A))</a>
+        
+          <div class="summary"><p>Creates a Matrix from elements contained within a StaticArray.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#identity%28id%3DT.zero%2B1%29-class-method" class="signature"><strong>.identity</strong>(id = <span class="t">T</span>.zero <span class="o">+</span> <span class="n">1</span>)</a>
+        
+          <div class="summary"><p>Build the idenity matrix for the instanced type and dimensions.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#of%28value%3AT%29-class-method" class="signature"><strong>.of</strong>(value : T)</a>
+        
+          <div class="summary"><p>Creates a Matrix with each element initialized as <em>value</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#zero-class-method" class="signature"><strong>.zero</strong></a>
+        
+          <div class="summary"><p>Build a zero matrix (all elements populated with zero value of the type isntance).</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#%2A%28other%3AMatrix%28UNDERSCORE%2CA%2CB%29%29-instance-method" class="signature"><strong>#*</strong>(other : Matrix(UNDERSCORE, A, B))</a>
+        
+          <div class="summary"><p>Performs a matrix multiplication with <em>other</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%2A%28other%29-instance-method" class="signature"><strong>#*</strong>(other)</a>
+        
+          <div class="summary"><p>Performs a scalar multiplication with <em>other</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%2B%28other%3AMatrix%29-instance-method" class="signature"><strong>#+</strong>(other : Matrix)</a>
+        
+          <div class="summary"><p>Returns a new Matrix that is the result of performing a matrix addition with <em>other</em></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#-%28other%3AMatrix%29-instance-method" class="signature"><strong>#-</strong>(other : Matrix)</a>
+        
+          <div class="summary"><p>Returns a new Matrix that is the result of performing a matrix subtraction with <em>other</em></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3D%3D%28other%3AMatrix%28U%2CA%2CB%29%29forallU-instance-method" class="signature"><strong>#==</strong>(other : Matrix(U, A, B)) forall U</a>
+        
+          <div class="summary"><p>Equality.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3D%3D%28other%29-instance-method" class="signature"><strong>#==</strong>(other)</a>
+        
+          <div class="summary"><p>Equality with another object, or differently sized matrix.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%5B%5D%28i%3AInt%2Cj%3AInt%29%3AT-instance-method" class="signature"><strong>#[]</strong>(i : Int, j : Int) : T</a>
+        
+          <div class="summary"><p>Retrieves the value of the element at <em>i</em>,<em>j</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%5B%5D%3D%28i%3AInt%2Cj%3AInt%2Cvalue%3AT%29-instance-method" class="signature"><strong>#[]=</strong>(i : Int, j : Int, value : T)</a>
+        
+          <div class="summary"><p>Sets the value of the element at <em>i</em>,<em>j</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#col%28j%3AInt%29-instance-method" class="signature"><strong>#col</strong>(j : Int)</a>
+        
+          <div class="summary"><p>Gets the cotents of column <em>j</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#cols-instance-method" class="signature"><strong>#cols</strong></a>
+        
+          <div class="summary"><p>Count of columns.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#dimensions-instance-method" class="signature"><strong>#dimensions</strong></a>
+        
+          <div class="summary"><p>Returns the dimensions of <code>self</code> as a tuple of <code>{rows, cols}</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#map%28%26block%3AT-%3EU%29forallU-instance-method" class="signature"><strong>#map</strong>(&block : T -> U) forall U</a>
+        
+          <div class="summary"><p>Apply a morphism to all elements, returning a new Matrix with the result.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#map%21%28%26block%3AT-%3ET%29-instance-method" class="signature"><strong>#map!</strong>(&block : T -> T)</a>
+        
+          <div class="summary"><p>Apply an endomorphism to <code>self</code>, mutating all elements in place.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#map_with_index%28%26block%3AT%2CInt32-%3EU%29forallU-instance-method" class="signature"><strong>#map_with_index</strong>(&block : T, Int32 -> U) forall U</a>
+        
+          <div class="summary"><p>Apply a morphism to all elements, returning a new Matrix with the result.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#map_with_indices%28%26block%3AT%2CUInt32%2CUInt32-%3EU%29forallU-instance-method" class="signature"><strong>#map_with_indices</strong>(&block : T, UInt32, UInt32 -> U) forall U</a>
+        
+          <div class="summary"><p>Apply a morphism to all elements, returning a new Matrix with the result.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#merge%28other%3AMatrix%28U%2CA%2CB%29%2C%26block%3AT%2CU-%3EUNDERSCORE%29forallU-instance-method" class="signature"><strong>#merge</strong>(other : Matrix(U, A, B), &block : T, U -> UNDERSCORE) forall U</a>
+        
+          <div class="summary"><p>Merge with another similarly dimensions matrix, apply the passed block to each elemenet pair.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#row%28i%3AInt%29-instance-method" class="signature"><strong>#row</strong>(i : Int)</a>
+        
+          <div class="summary"><p>Gets the contents of row <em>i</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rows-instance-method" class="signature"><strong>#rows</strong></a>
+        
+          <div class="summary"><p>Count of rows.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#size-instance-method" class="signature"><strong>#size</strong></a>
+        
+          <div class="summary"><p>Gets the capacity (total number of elements) of <code>self</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#transpose-instance-method" class="signature"><strong>#transpose</strong></a>
+        
+          <div class="summary"><p>Creates a new matrix that is the result of inverting the rows and columns of <code>self</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#update%28i%2Cj%2C%26block%3AT-%3ET%29-instance-method" class="signature"><strong>#update</strong>(i, j, &block : T -> T)</a>
+        
+          <div class="summary"><p>Yields the current element at <em>i</em>,<em>j</em> and updates the value with the block's return value.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>Constructor Detail</h2>
+  
+    <div class="entry-detail" id="new(&amp;block:Int32-&gt;T)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(&block : Int32 -> T)
+
+        <a class="method-permalink" href="#new%28%26block%3AInt32-%3ET%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Creates Matrix, yielding the linear index for each element to provide an
+initial value.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L64" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail" id="build(&amp;initialiser:UInt32,UInt32-&gt;T)-class-method">
+      <div class="signature">
+        
+        def self.<strong>build</strong>(&initialiser : UInt32, UInt32 -> T)
+
+        <a class="method-permalink" href="#build%28%26initialiser%3AUInt32%2CUInt32-%3ET%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Creates a Matrix, invoking <em>initialiser</em> with each pair of indices.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L17" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="from(list:StaticArray(T,A))-class-method">
+      <div class="signature">
+        
+        def self.<strong>from</strong>(list : StaticArray(T, A))
+
+        <a class="method-permalink" href="#from%28list%3AStaticArray%28T%2CA%29%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Creates a Matrix from elements contained within a StaticArray.</p>
+
+<p>The matrix will be filled rows first, such that an array of</p>
+
+<p>[1, 2, 3, 4]</p>
+
+<p>becomes</p>
+
+<p>| 1  2 |
+  | 3  4 |</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L36" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="identity(id=T.zero+1)-class-method">
+      <div class="signature">
+        
+        def self.<strong>identity</strong>(id = <span class="t">T</span>.zero <span class="o">+</span> <span class="n">1</span>)
+
+        <a class="method-permalink" href="#identity%28id%3DT.zero%2B1%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Build the idenity matrix for the instanced type and dimensions.</p>
+
+<p><code>id</code> may be used to specify an identity element for the type. If unspecifed
+a numeric identity will be assumed.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L54" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="of(value:T)-class-method">
+      <div class="signature">
+        
+        def self.<strong>of</strong>(value : T)
+
+        <a class="method-permalink" href="#of%28value%3AT%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Creates a Matrix with each element initialized as <em>value</em>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L12" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="zero-class-method">
+      <div class="signature">
+        
+        def self.<strong>zero</strong>
+
+        <a class="method-permalink" href="#zero-class-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Build a zero matrix (all elements populated with zero value of the type
+isntance).</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L46" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="*(other:Matrix(UNDERSCORE,A,B))-instance-method">
+      <div class="signature">
+        
+        def <strong>*</strong>(other : <a href="Matrix.html">Matrix</a>(UNDERSCORE, A, B))
+
+        <a class="method-permalink" href="#%2A%28other%3AMatrix%28UNDERSCORE%2CA%2CB%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Performs a matrix multiplication with <em>other</em>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L100" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="*(other)-instance-method">
+      <div class="signature">
+        
+        def <strong>*</strong>(other)
+
+        <a class="method-permalink" href="#%2A%28other%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Performs a scalar multiplication with <em>other</em>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L111" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="+(other:Matrix)-instance-method">
+      <div class="signature">
+        
+        def <strong>+</strong>(other : <a href="Matrix.html">Matrix</a>)
+
+        <a class="method-permalink" href="#%2B%28other%3AMatrix%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Returns a new Matrix that is the result of performing a matrix addition with
+<em>other</em></p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L89" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="-(other:Matrix)-instance-method">
+      <div class="signature">
+        
+        def <strong>-</strong>(other : <a href="Matrix.html">Matrix</a>)
+
+        <a class="method-permalink" href="#-%28other%3AMatrix%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Returns a new Matrix that is the result of performing a matrix subtraction
+with <em>other</em></p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L95" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="==(other:Matrix(U,A,B))forallU-instance-method">
+      <div class="signature">
+        
+        def <strong>==</strong>(other : <a href="Matrix.html">Matrix</a>(U, A, B)) forall U
+
+        <a class="method-permalink" href="#%3D%3D%28other%3AMatrix%28U%2CA%2CB%29%29forallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Equality. Returns <code>true</code> if each element in <code>self</code> is equal to each
+corresponding element in <em>other</em>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L71" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="==(other)-instance-method">
+      <div class="signature">
+        
+        def <strong>==</strong>(other)
+
+        <a class="method-permalink" href="#%3D%3D%28other%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Equality with another object, or differently sized matrix. Always <code>false</code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L83" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="[](i:Int,j:Int):T-instance-method">
+      <div class="signature">
+        
+        def <strong>[]</strong>(i : Int, j : Int) : T
+
+        <a class="method-permalink" href="#%5B%5D%28i%3AInt%2Cj%3AInt%29%3AT-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Retrieves the value of the element at <em>i</em>,<em>j</em>.</p>
+
+<p>Indicies are zero-based. Negative values may be passed for <em>i</em> and <em>j</em> to
+enable reverse indexing such that <code>self[-1, -1] == self[M - 1, N - 1]</code>
+(same behaviour as arrays).</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L120" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="[]=(i:Int,j:Int,value:T)-instance-method">
+      <div class="signature">
+        
+        def <strong>[]=</strong>(i : Int, j : Int, value : T)
+
+        <a class="method-permalink" href="#%5B%5D%3D%28i%3AInt%2Cj%3AInt%2Cvalue%3AT%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Sets the value of the element at <em>i</em>,<em>j</em>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L126" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="col(j:Int)-instance-method">
+      <div class="signature">
+        
+        def <strong>col</strong>(j : Int)
+
+        <a class="method-permalink" href="#col%28j%3AInt%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Gets the cotents of column <em>j</em>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L137" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="cols-instance-method">
+      <div class="signature">
+        
+        def <strong>cols</strong>
+
+        <a class="method-permalink" href="#cols-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Count of columns.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L211" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="dimensions-instance-method">
+      <div class="signature">
+        
+        def <strong>dimensions</strong>
+
+        <a class="method-permalink" href="#dimensions-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Returns the dimensions of <code>self</code> as a tuple of <code>{rows, cols}</code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L196" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="map(&amp;block:T-&gt;U)forallU-instance-method">
+      <div class="signature">
+        
+        def <strong>map</strong>(&block : T -> U) forall U
+
+        <a class="method-permalink" href="#map%28%26block%3AT-%3EU%29forallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Apply a morphism to all elements, returning a new Matrix with the result.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L149" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="map!(&amp;block:T-&gt;T)-instance-method">
+      <div class="signature">
+        
+        def <strong>map!</strong>(&block : T -> T)
+
+        <a class="method-permalink" href="#map%21%28%26block%3AT-%3ET%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Apply an endomorphism to <code>self</code>, mutating all elements in place.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L170" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="map_with_index(&amp;block:T,Int32-&gt;U)forallU-instance-method">
+      <div class="signature">
+        
+        def <strong>map_with_index</strong>(&block : T, Int32 -> U) forall U
+
+        <a class="method-permalink" href="#map_with_index%28%26block%3AT%2CInt32-%3EU%29forallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Apply a morphism to all elements, returning a new Matrix with the result.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L163" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="map_with_indices(&amp;block:T,UInt32,UInt32-&gt;U)forallU-instance-method">
+      <div class="signature">
+        
+        def <strong>map_with_indices</strong>(&block : T, UInt32, UInt32 -> U) forall U
+
+        <a class="method-permalink" href="#map_with_indices%28%26block%3AT%2CUInt32%2CUInt32-%3EU%29forallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Apply a morphism to all elements, returning a new Matrix with the result.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L156" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="merge(other:Matrix(U,A,B),&amp;block:T,U-&gt;UNDERSCORE)forallU-instance-method">
+      <div class="signature">
+        
+        def <strong>merge</strong>(other : <a href="Matrix.html">Matrix</a>(U, A, B), &block : T, U -> UNDERSCORE) forall U
+
+        <a class="method-permalink" href="#merge%28other%3AMatrix%28U%2CA%2CB%29%2C%26block%3AT%2CU-%3EUNDERSCORE%29forallU-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Merge with another similarly dimensions matrix, apply the passed block to
+each elemenet pair.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L179" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="row(i:Int)-instance-method">
+      <div class="signature">
+        
+        def <strong>row</strong>(i : Int)
+
+        <a class="method-permalink" href="#row%28i%3AInt%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Gets the contents of row <em>i</em>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L132" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rows-instance-method">
+      <div class="signature">
+        
+        def <strong>rows</strong>
+
+        <a class="method-permalink" href="#rows-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Count of rows.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L206" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="size-instance-method">
+      <div class="signature">
+        
+        def <strong>size</strong>
+
+        <a class="method-permalink" href="#size-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Gets the capacity (total number of elements) of <code>self</code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L201" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="transpose-instance-method">
+      <div class="signature">
+        
+        def <strong>transpose</strong>
+
+        <a class="method-permalink" href="#transpose-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Creates a new matrix that is the result of inverting the rows and columns
+of <code>self</code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L189" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="update(i,j,&amp;block:T-&gt;T)-instance-method">
+      <div class="signature">
+        
+        def <strong>update</strong>(i, j, &block : T -> T)
+
+        <a class="method-permalink" href="#update%28i%2Cj%2C%26block%3AT-%3ET%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Yields the current element at <em>i</em>,<em>j</em> and updates the value with the
+block's return value.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aca-labs/matrix/blob/19ffe600d6480e8118111c96107ebbd61d32f688/src/matrix.cr#L143" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>
